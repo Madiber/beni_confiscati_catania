@@ -1,10 +1,10 @@
-Un progetto di: Mario A. Di Bernardo (@Madiber)
-Supervisore: Dott. Cristiano Longo
-Anno Accademico 2014/15
-
 # Open Data: una mappa dei beni confiscati alla mafia del comune di Catania
 
-[TOC]
+Un progetto di: Mario A. Di Bernardo (@Madiber)
+
+Supervisore: Dott. Cristiano Longo
+
+Anno Accademico 2014/15
 
 ##ABSTRACT
 Il progetto presentato mira alla realizzazione di una mappa dei beni confiscati alla criminalità organizzata in gestione al comune di Catania, prendendo spunto da un'analoga implementazione realizzata per il comune di Palermo.
@@ -44,18 +44,26 @@ L'ontologia così creata è stata quindi caricata su Dydra - server che offre en
 
 ##WEBGRAFIA
 - Open Knowledge Foundation
+
 https://okfn.org/
 - Mappa dei beni confiscati alla criminalità organizzata in gestione al comune di Palermo
+
 http://www.dmi.unict.it/~longo/locn/BeniConfiscatiPalermo.html
 - Dataset del patrimonio rilasciato dal comune di Palermo
+
 http://www.comune.palermo.it/opendata_dld.php?id=319
 - Sparql suite
+
 http://www.dmi.unict.it/~longo/sparql_suite/
 - Elenco dei beni confiscati del comune di Catania
+
 http://www.comune.catania.it/amministrazione-trasparente/beni-immobili-e-gestione-del-patrimonio/patrimonio-immobiliare.aspx
 - Validatore RDF del W3
+
 http://www.w3.org/RDF/Validator/
 - Categorie catastali secondo la Gazzetta Ufficiale
+
 http://www.gazzettaufficiale.it/catasto/help/categoria
 - Protege OWL
+
 http://protege.stanford.edu/products.php#desktop-protege
