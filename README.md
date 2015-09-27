@@ -1,6 +1,6 @@
 # Open Data: una mappa dei beni confiscati alla mafia del comune di Catania
 
-Un progetto di: Mario A. Di Bernardo @Madiber
+Realizzato da: Mario A. Di Bernardo @Madiber
 
 Supervisore: Dott. Cristiano Longo
 
