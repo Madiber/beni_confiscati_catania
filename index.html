@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Beni confiscati catania by Madiber</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Beni confiscati catania</h1>
+      <h2 class="project-tagline">Open Data, Beni confiscati, Comune di Catania</h2>
+      <a href="https://github.com/Madiber/beni_confiscati_catania" class="btn">View on GitHub</a>
+      <a href="https://github.com/Madiber/beni_confiscati_catania/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Madiber/beni_confiscati_catania/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="open-data-una-mappa-dei-beni-confiscati-alla-mafia-del-comune-di-catania" class="anchor" href="#open-data-una-mappa-dei-beni-confiscati-alla-mafia-del-comune-di-catania" aria-hidden="true"><span class="octicon octicon-link"></span></a>Open Data: una mappa dei beni confiscati alla mafia del comune di Catania</h1>
+
+<p>Un progetto di: Mario A. Di Bernardo <a href="https://github.com/Madiber" class="user-mention">@Madiber</a></p>
+
+<p>Supervisore: Dott. Cristiano Longo</p>
+
+<p>Anno Accademico 2014/15</p>
+
+<h2>
+<a id="abstract" class="anchor" href="#abstract" aria-hidden="true"><span class="octicon octicon-link"></span></a>ABSTRACT</h2>
+
+<p>Il progetto presentato mira alla realizzazione di una mappa dei beni confiscati alla criminalità organizzata in gestione al comune di Catania, prendendo spunto da un'analoga implementazione realizzata per il comune di Palermo.
+Mediante uno script in PHP, i dati presenti sul sito del comune verranno tradotti in formato RDF/XML e caricati su un server per poter essere così consultabili da un secondo script che, utilizzando la sparql suite, permetterà di costruire e visualizzare la mappa. </p>
+
+<h3>
+<a id="criticità-iniziali-riscontrate" class="anchor" href="#criticit%C3%A0-iniziali-riscontrate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Criticità iniziali riscontrate</h3>
+
+<p>La mappa realizzata per il comune di Palermo è stata ricavata dal dataset del patrimonio rilasciato dal comune stesso, disponibile in formato CSV e distribuito con licenza Creative Commons Attribuzione 4.0 Internazionale al seguente <a href="http://www.comune.palermo.it/opendata_dld.php?id=319">URI permanente</a>.
+La tabella fornita dal comune di Catania è invece in formato ODS, è incompleto, mal compilato, presenta diverse anomalie nella formattazione, le informazioni sono talvolta accorpate in un'unica colonna senza seguire alcuno schema ricorrente (es. in una riga indirizzo-civico-tipologia, nella successiva solo indirizzo). Il documento è dunque impossibile da leggere via script. Pertanto, è stato necessario rimaneggiare il file del comune creando un nuovo file CSV.</p>
+
+<h3>
+<a id="open-data-cosa-sono" class="anchor" href="#open-data-cosa-sono" aria-hidden="true"><span class="octicon octicon-link"></span></a>Open Data: cosa sono</h3>
+
+<p>Secondo la Open Knowledge Foundation:
+«un contenuto o un dato si definisce aperto se chiunque è in grado di utilizzarlo, ri-utilizzarlo e ridistribuirlo, soggetto, al massimo, alla richiesta di attribuzione e condivisione allo stesso modo».
+Il principio su cui si basa è quello, di più ampio respiro, dell'<strong>open government</strong>, secondo il quale la pubblica amministrazione dovrebbe essere aperta ai cittadini, sia in termini di trasparenza sia di partecipazione diretta al processo decisionale, prediligendo le nuove tecnologie dell'informazione e della comunicazione come canale di diffusione dei dati stessi.</p>
+
+<p><img src="https://github.com/Madiber/beni_confiscati_catania/blob/master/img/open_data.png" alt="logo"></p>
+
+<h2>
+<a id="script-di-traduzione" class="anchor" href="#script-di-traduzione" aria-hidden="true"><span class="octicon octicon-link"></span></a>SCRIPT DI TRADUZIONE</h2>
+
+<p>Il nuovo file CSV è stato quindi convertito in un'ontologia RDF/XML usando uno script PHP che, funzionando da riga di comando, prende sullo standard input il file, lo legge riga per riga e restituisce un documento RDF/XML. Qui, ad ogni edificio sono stati associati, tra gli altri, i dati riguardanti:</p>
+
+<ul>
+<li>indirizzo e numero civico;</li>
+<li>coordinate geografiche ottenute dalle API di Google Maps a partire dai dati al punto precedente;</li>
+<li>categoria catastale in riferimento a un vocabolario OWL da me realizzato;</li>
+<li>la disponibilità, ovvero se l'edificio è stato assegnato o meno;</li>
+<li>l'eventuale associazione assegnataria.</li>
+</ul>
+
+<p><img src="https://github.com/Madiber/beni_confiscati_catania/blob/master/img/screen.png" alt="screen"></p>
+
+<p>Lo script è stato successivamente modificato per permette la creazione di due ulteriori ontologie RDF/XML: una contenente le sole informazioni sui beni e una con i soli dati di geo localizzazione. Ciò faciliterà future implementazioni che utilizzeranno, al posto delle API di Google, alternative Open che permetteranno di riutilizzare i dati e di visualizzare i punti senza dover per forza usare Google Maps.</p>
+
+<h3>
+<a id="validazione" class="anchor" href="#validazione" aria-hidden="true"><span class="octicon octicon-link"></span></a>Validazione</h3>
+
+<p>Per verificare la correttezza dello script e, quindi, del file risultante è stato utilizzato il validatore RDF online messo a disposizione da W3.</p>
+
+<h2>
+<a id="vocabolario-categorie-catastali" class="anchor" href="#vocabolario-categorie-catastali" aria-hidden="true"><span class="octicon octicon-link"></span></a>VOCABOLARIO CATEGORIE CATASTALI</h2>
+
+<p>Non avendo trovato nulla di pronto relativo alla classificazione dei Real Estate italiani, partendo dalle categorie elencate sulla Gazzetta Ufficiale è stato modellato – con una gerarchia di classi - un primo vocabolario in OWL utilizzando il software Protege.
+Tuttavia, mappare le categorie – descritte in modo informale e quasi colloquiale - nel CSV con la corretta categoria catastale si è rivelato problematico: alcune descrizioni non avevano corrispondenza o quelle possibili erano più d'una. Un nuovo vocabolario è stato quindi definito, questa volta prendendo in considerazione le categorie così come esposte nel CSV. In questo modo le abbreviazioni sono state ricondotte ai termini estesi e si sono risolti i casi in cui la stessa categoria era indicata con due termini diversi (es. “Terr.” e “terreno”). È stata anche prevista una classe “sconosciuta” cui fare riferimento in caso di mancata corrispondenza.
+<img src="https://github.com/Madiber/beni_confiscati_catania/blob/master/img/protege.png" alt="protege"></p>
+
+<h2>
+<a id="mappa" class="anchor" href="#mappa" aria-hidden="true"><span class="octicon octicon-link"></span></a>MAPPA</h2>
+
+<p>L'ontologia così creata è stata quindi caricata su Dydra - server che offre endpoint SPARQL - e tramite uno script JAVASCRIPT è stata realizzata una visualizzazione della mappa sfruttando una libreria già esistente.
+<img src="https://github.com/Madiber/beni_confiscati_catania/blob/master/img/mappa.png" alt="logo"></p>
+
+<h2>
+<a id="webgrafia" class="anchor" href="#webgrafia" aria-hidden="true"><span class="octicon octicon-link"></span></a>WEBGRAFIA</h2>
+
+<ul>
+<li>Open Knowledge Foundation</li>
+</ul>
+
+<p><a href="https://okfn.org/">https://okfn.org/</a></p>
+
+<ul>
+<li>Mappa dei beni confiscati alla criminalità organizzata in gestione al comune di Palermo</li>
+</ul>
+
+<p><a href="http://www.dmi.unict.it/%7Elongo/locn/BeniConfiscatiPalermo.html">http://www.dmi.unict.it/~longo/locn/BeniConfiscatiPalermo.html</a></p>
+
+<ul>
+<li>Dataset del patrimonio rilasciato dal comune di Palermo</li>
+</ul>
+
+<p><a href="http://www.comune.palermo.it/opendata_dld.php?id=319">http://www.comune.palermo.it/opendata_dld.php?id=319</a></p>
+
+<ul>
+<li>Sparql suite</li>
+</ul>
+
+<p><a href="http://www.dmi.unict.it/%7Elongo/sparql_suite/">http://www.dmi.unict.it/~longo/sparql_suite/</a></p>
+
+<ul>
+<li>Elenco dei beni confiscati del comune di Catania</li>
+</ul>
+
+<p><a href="http://www.comune.catania.it/amministrazione-trasparente/beni-immobili-e-gestione-del-patrimonio/patrimonio-immobiliare.aspx">http://www.comune.catania.it/amministrazione-trasparente/beni-immobili-e-gestione-del-patrimonio/patrimonio-immobiliare.aspx</a></p>
+
+<ul>
+<li>Validatore RDF del W3</li>
+</ul>
+
+<p><a href="http://www.w3.org/RDF/Validator/">http://www.w3.org/RDF/Validator/</a></p>
+
+<ul>
+<li>Categorie catastali secondo la Gazzetta Ufficiale</li>
+</ul>
+
+<p><a href="http://www.gazzettaufficiale.it/catasto/help/categoria">http://www.gazzettaufficiale.it/catasto/help/categoria</a></p>
+
+<ul>
+<li>Protege OWL</li>
+</ul>
+
+<p><a href="http://protege.stanford.edu/products.php#desktop-protege">http://protege.stanford.edu/products.php#desktop-protege</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Madiber/beni_confiscati_catania">Beni confiscati catania</a> is maintained by <a href="https://github.com/Madiber">Madiber</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
