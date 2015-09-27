@@ -1,0 +1,120 @@
+<html>
+	<head>
+		<title>Beni Confiscati alla Mafia - Catania</title>
+		<link href='http://fonts.googleapis.com/css?family=Actor' rel='stylesheet' type='text/css' />
+		<link rel="stylesheet" href="http://www.dmi.unict.it/~longo/longo.css"/>
+		<script src="http://www.dmi.unict.it/~longo/sparql_suite/sparql_processor.js"></script>		
+		<script src="http://www.dmi.unict.it/~longo/sparql_suite/locn_sparql_processor.js"></script>	
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>	
+	</head>
+	<body>
+	<header>
+		<h1>Confiscated Assets in Catania</h1>
+		<img src="../img/unict.png" width="70px" height="70px" />
+		<p class="dydra">Powered by <a href="http://dydra.com"> <img src="../img/dydra-logo-24pt.png" /></a></p>
+		<!--<select id="categorie_cat" onchange="category_selector()">-->
+		
+	</header>
+	
+	
+	<main>
+
+		<select id="categorie_cat" onload="category_selector(0)">
+			<option onclick="category_selector(0)" value="0" selected="selected">Scegli una categoria di beni</option>
+			<option onclick="category_selector(1)" value="1">Villetta</option>
+			<option onclick="category_selector(2)" value="2">Appartamento</option>
+			<option onclick="category_selector(3)" value="3">Giardino</option>
+			<option onclick="category_selector(4)" value="4">Bottega</option>
+			<option onclick="category_selector(5)" value="5">Magazzino</option>
+			<option onclick="category_selector(6)" value="6">Garage</option>
+			<option onclick="category_selector(7)" value="7">Terreno</option>
+			<option onclick="category_selector(8)" value="8">Fabbric.</option>
+			<option onclick="category_selector(9)" value="9">Lastrico solare</option>
+		</select>
+		<br><br>
+	<div id="map" style="height: 500px;" />
+	<script type="text/javascript">
+		function category_selector(val)
+		{
+    		//document.getElementById("srt").value = document.getElementById("Ultra").value;
+		
+
+		//Create Map
+		var canvas=document.getElementById("map");
+		//var pElement=document.createElement("p");
+		//var textElement=document.createTextNode("Un testo");
+		//pElement.appendChild(textElement);
+		//divElement.appendChild(pElement);
+		var map=  new google.maps.Map(canvas, {
+			zoom: 13,
+			center: new google.maps.LatLng(37.503, 15.079)
+		});
+		
+		//var e = document.getElementById("categorie_cat");
+		// prendi il valore di value
+		//var valore = e.options[e.selectedIndex].value;
+		// prendi la stringa
+		// var stringa = e.options[e.selectedIndex].text;
+			
+		//seleziona la query
+		var additionalConstraints;
+		//switch(valore)
+		//document.getElementById("srt").value = document.getElementById("categorie_cat").value;
+		//int val = document.getElementById("categorie_cat").value;
+		switch(val)
+		{
+		    case null:
+        		additionalConstraints = null;
+        	break;
+		    case 0:
+        		additionalConstraints = null;
+        	break;
+		    case 1:
+		        additionalConstraints = "?item rdfs:label ?label . FILTER regex(?label, \"villetta\")";
+		    break;
+		    case 2:
+		        additionalConstraints = "?item rdfs:label ?label . FILTER regex(?label, \"appartam\.\")";
+		    break;
+		    case 3:
+		        additionalConstraints = "?item rdfs:label ?label . FILTER regex(?label, \"giardino\")";
+		    break;
+		    case 4:
+		        additionalConstraints = "?item rdfs:label ?label . FILTER regex(?label, \"bottega\")";
+		    break;
+		    case 5:
+		        additionalConstraints = "?item rdfs:label ?label . FILTER regex(?label, \"magazzino\")";
+		    break;
+		    case 6:
+		        additionalConstraints = "?item rdfs:label ?label . FILTER regex(?label, \"garage\")";
+		    break;
+		    case 7:
+		        additionalConstraints = "?item rdfs:label ?label . FILTER regex(?label, \"terreno\")";
+		    break;
+		    case 8:
+		        additionalConstraints = "?item rdfs:label ?label . FILTER regex(?label, \"fabbric.\")";
+		    break;
+		    case 9:
+		        additionalConstraints = "?item rdfs:label ?label . FILTER regex(?label, \"lastrico solare\")";
+		    break;
+		    default:
+        		additionalConstraints = null;
+		}
+
+		//create the processor instance
+		//var additionalPrefixes = "prefix org:<http://www.w3.org/ns/org#>";
+		var additionalPrefixes = "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX  wsg84: <http://www.w3.org/2003/01/geo/wgs84_pos#>\nPREFIX  locn: <http://www.w3.org/ns/locn#>\nPREFIX  dcterms: <http://purl.org/dc/terms/>\nPREFIX  owl: <http://www.w3.org/2002/07/owl#>\nPREFIX foaf:<http://xmlns.com/foaf/0.1/>\nprefix org:<http://www.w3.org/ns/org#>";
+
+		var processor = new GoogleMapsLOCNProcessor(additionalConstraints, additionalPrefixes, map);
+
+		var endpoint = "http://dydra.com/madiber/beni-confiscati-catania/sparql";
+		sparql_query(endpoint, processor);
+			//map.retrieveFromRDF("http://dydra.com/cristianolongo/beni-confiscati-palermo/sparql",null); 
+	}
+	</script>
+
+
+
+
+	<!-- /main -->
+	</body>
+</html>
